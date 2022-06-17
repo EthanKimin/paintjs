@@ -46,13 +46,11 @@ function onTouchStart() {
   ctx.beginPath();
 }
 function onTouchMove(event) {
+  event.preventDefault();
   const x = event.targetTouches[0].clientX - event.touches[0].target.offsetLeft;
   const y = event.targetTouches[0].clientY - event.touches[0].target.offsetTop;
   ctx.lineTo(x, y);
   ctx.stroke();
-}
-function onTouchEnd() {
-  painting = false;
 }
 
 function handleCanvasClick() {
@@ -102,7 +100,7 @@ if (canvas) {
 
   canvas.addEventListener('touchmove', onTouchMove);
   canvas.addEventListener('touchstart', onTouchStart);
-  canvas.addEventListener('touchend', onTouchEnd);
+  canvas.addEventListener('touchend', stopPainting);
 
   canvas.addEventListener('click', handleCanvasClick);
   canvas.addEventListener('contextmenu', handleCM);
