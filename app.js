@@ -48,7 +48,6 @@ function onTouchStart() {
 function onTouchMove(event) {
   const x = event.targetTouches[0].clientX - event.touches[0].target.offsetLeft;
   const y = event.targetTouches[0].clientY - event.touches[0].target.offsetTop;
-  console.log(event);
   ctx.lineTo(x, y);
   ctx.stroke();
 }
