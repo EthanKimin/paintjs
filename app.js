@@ -41,6 +41,21 @@ function onMouseMove(event) {
   }
 }
 
+function onTouchStart() {
+  painting = true;
+  ctx.beginPath();
+}
+function onTouchMove(event) {
+  const x = event.targetTouches[0].clientX - event.touches[0].target.offsetLeft;
+  const y = event.targetTouches[0].clientY - event.touches[0].target.offsetTop;
+  console.log(event);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+}
+function onTouchEnd() {
+  painting = false;
+}
+
 function handleCanvasClick() {
   if (filling) {
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
@@ -86,9 +101,9 @@ if (canvas) {
   canvas.addEventListener('mouseup', stopPainting);
   canvas.addEventListener('mouseleave', stopPainting);
 
-  canvas.addEventListener('touchmove', onMouseMove);
-  canvas.addEventListener('touchstart', startPainting);
-  canvas.addEventListener('touchend', stopPainting);
+  canvas.addEventListener('touchmove', onTouchMove);
+  canvas.addEventListener('touchstart', onTouchStart);
+  canvas.addEventListener('touchend', onTouchEnd);
 
   canvas.addEventListener('click', handleCanvasClick);
   canvas.addEventListener('contextmenu', handleCM);
